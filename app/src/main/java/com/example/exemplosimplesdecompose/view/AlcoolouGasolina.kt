@@ -45,6 +45,8 @@ fun AlcoolGasolinaPreco(navController: NavHostController,check:Boolean) {
     var nomeDoPosto by remember { mutableStateOf("") }
     var checkedState by remember { mutableStateOf(check) }
 
+    checkedState = loadConfig(context)
+
     // A surface container using the 'background' color from the theme
     Surface(
         modifier = Modifier
@@ -146,5 +148,11 @@ fun saveConfig(context: Context, switch_state:Boolean){
     var editor = sp.edit()
     editor.putBoolean("is_75_checked",switch_state)
     editor.apply()
+}
+
+fun loadConfig(context: Context):Boolean {
+    val sharedFileName="config_Alc_ou_Gas"
+    var sp: SharedPreferences = context.getSharedPreferences(sharedFileName, Context.MODE_PRIVATE)
+    return sp.getBoolean("is_75_checked", false)
 }
 
